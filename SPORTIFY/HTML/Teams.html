@@ -11,14 +11,262 @@
         <nav>
             <div class="logo">SPORTIFY</div>
             <ul class="nav-links">
-                <li><a href="../HTML/news.html">Latest News</a></li>
-                <li><a href="../HTML/Teams.html">Team</a></li>
-                <li><a href="../HTML/matches.html">Matches</a></li>
-                <li><a href="../HTML/tickets.html">Bet</a></li>
-                <li><a href="../HTML/shop.html">Shop</a></li>
+                <li><a href="frontpage.html">Home</a></li>
+                <li><a href="Teams.html">Team</a></li>
+                <li><a href="matches.html">Matches</a></li>
+                <li><a href="tickets.html">Bet</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="#" onclick="toggleAdmin()" class="admin-toggle">⚙️ Admin</a></li>
             </ul>
         </nav>
     </header>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="admin-content">
+            <div class="admin-header">
+                <h2>Admin Panel</h2>
+                <button onclick="toggleAdmin()" class="close-btn">✕</button>
+            </div>
+            
+            <div class="admin-tabs">
+                <button class="admin-tab active" onclick="switchAdminTab('league')">Add League</button>
+                <button class="admin-tab" onclick="switchAdminTab('manage')">Manage Leagues</button>
+                <button class="admin-tab" onclick="switchAdminTab('team')">Add Team</button>
+                <button class="admin-tab" onclick="switchAdminTab('manageteams')">Manage Teams</button>
+                <button class="admin-tab" onclick="switchAdminTab('player')">Add Player</button>
+                <button class="admin-tab" onclick="switchAdminTab('manageplayers')">Manage Players</button>
+            </div>
+
+            <!-- Add League Form -->
+            <div id="admin-league" class="admin-form active">
+                <h3>Add New League</h3>
+                <form onsubmit="addLeague(event)">
+                    <div class="form-group">
+                        <label>League Name</label>
+                        <input type="text" id="leagueName" required placeholder="e.g., Premier League">
+                    </div>
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" id="leagueCountry" required placeholder="e.g., England">
+                    </div>
+                    <div class="form-group">
+                        <label>League Logo</label>
+                        <input type="file" id="leagueLogo" accept="image/*" required>
+                        <div id="leagueLogoPreview" class="image-preview"></div>
+                    </div>
+                    <button type="submit" class="submit-btn">Add League</button>
+                </form>
+            </div>
+
+            <!-- Manage Leagues Form -->
+            <div id="admin-manage" class="admin-form">
+                <h3>Manage Existing Leagues</h3>
+                <div id="leaguesList" class="manage-list">
+                    <!-- Leagues will be loaded here dynamically -->
+                </div>
+            </div>
+
+            <!-- Add Team Form -->
+            <div id="admin-team" class="admin-form">
+                <h3>Add New Team</h3>
+                <form onsubmit="addTeam(event)">
+                    <div class="form-group">
+                        <label>Select League</label>
+                        <select id="teamLeague" required>
+                            <option value="">Choose a league...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Team Name</label>
+                        <input type="text" id="teamName" required placeholder="e.g., Chelsea FC">
+                    </div>
+                    <div class="form-group">
+                        <label>Stadium</label>
+                        <input type="text" id="teamStadium" placeholder="e.g., Stamford Bridge">
+                    </div>
+                    <div class="form-group">
+                        <label>Founded Year</label>
+                        <input type="number" id="teamFounded" placeholder="e.g., 1905">
+                    </div>
+                    <div class="form-group">
+                        <label>Team Logo</label>
+                        <input type="file" id="teamLogo" accept="image/*" required>
+                        <div id="teamLogoPreview" class="image-preview"></div>
+                    </div>
+                    <button type="submit" class="submit-btn">Add Team</button>
+                </form>
+            </div>
+
+            <!-- Manage Teams Form -->
+            <div id="admin-manageteams" class="admin-form">
+                <h3>Manage Existing Teams</h3>
+                <div class="form-group">
+                    <label>Filter by League</label>
+                    <select id="manageTeamsLeagueFilter" onchange="loadTeamsForManagement()">
+                        <option value="">All Leagues</option>
+                    </select>
+                </div>
+                <div id="teamsList" class="manage-list">
+                    <!-- Teams will be loaded here dynamically -->
+                </div>
+            </div>
+
+            <!-- Add Player Form -->
+            <div id="admin-player" class="admin-form">
+                <h3>Add New Player</h3>
+                <form onsubmit="addPlayer(event)">
+                    <div class="form-group">
+                        <label>Select Team</label>
+                        <select id="playerTeam" required>
+                            <option value="">Choose a team...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Player Name</label>
+                        <input type="text" id="playerName" required placeholder="e.g., Cole Palmer">
+                    </div>
+                    <div class="form-group">
+                        <label>Jersey Number</label>
+                        <input type="number" id="playerNumber" required placeholder="e.g., 20">
+                    </div>
+                    <div class="form-group">
+                        <label>Position</label>
+                        <select id="playerPosition" required>
+                            <option value="">Choose position...</option>
+                            <option value="GK">Goalkeeper</option>
+                            <option value="DEF">Defender</option>
+                            <option value="MID">Midfielder</option>
+                            <option value="FWD">Forward</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Player Photo (Optional)</label>
+                        <input type="file" id="playerPhoto" accept="image/*">
+                        <div id="playerPhotoPreview" class="image-preview"></div>
+                    </div>
+                    <button type="submit" class="submit-btn">Add Player</button>
+                </form>
+            </div>
+
+            <!-- Manage Players Form -->
+            <div id="admin-manageplayers" class="admin-form">
+                <h3>Manage Existing Players</h3>
+                <div class="form-group">
+                    <label>Filter by Team</label>
+                    <select id="managePlayersTeamFilter" onchange="loadPlayersForManagement()">
+                        <option value="">All Teams</option>
+                    </select>
+                </div>
+                <div id="playersList" class="manage-list">
+                    <!-- Players will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit League Modal -->
+    <div id="editModal" class="edit-modal">
+        <div class="edit-modal-content">
+            <div class="edit-modal-header">
+                <h3>Edit League</h3>
+                <button onclick="closeEditModal()" class="close-btn">✕</button>
+            </div>
+            <form onsubmit="updateLeague(event)">
+                <input type="hidden" id="editLeagueId">
+                <div class="form-group">
+                    <label>League Name</label>
+                    <input type="text" id="editLeagueName" required>
+                </div>
+                <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" id="editLeagueCountry" required>
+                </div>
+                <div class="form-group">
+                    <label>Update League Logo (optional)</label>
+                    <input type="file" id="editLeagueLogo" accept="image/*">
+                    <div id="editLeagueLogoPreview" class="image-preview"></div>
+                </div>
+                <button type="submit" class="btn-update">Update League</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Team Modal -->
+    <div id="editTeamModal" class="edit-modal">
+        <div class="edit-modal-content">
+            <div class="edit-modal-header">
+                <h3>Edit Team</h3>
+                <button onclick="closeEditTeamModal()" class="close-btn">✕</button>
+            </div>
+            <form onsubmit="updateTeam(event)">
+                <input type="hidden" id="editTeamId">
+                <input type="hidden" id="editTeamLeagueId">
+                <div class="form-group">
+                    <label>Team Name</label>
+                    <input type="text" id="editTeamName" required>
+                </div>
+                <div class="form-group">
+                    <label>Stadium</label>
+                    <input type="text" id="editTeamStadium" placeholder="e.g., Stamford Bridge">
+                </div>
+                <div class="form-group">
+                    <label>Founded Year</label>
+                    <input type="number" id="editTeamFounded" placeholder="e.g., 1905">
+                </div>
+                <div class="form-group">
+                    <label>Update Team Logo</label>
+                    <input type="file" id="editTeamLogo" accept="image/*">
+                    <div id="editTeamLogoPreview" class="image-preview"></div>
+                    <small style="color: #b0b0b0; display: block; margin-top: 0.5rem;">
+                        Current: <span id="currentTeamLogo"></span>
+                    </small>
+                </div>
+                <button type="submit" class="btn-update">Update Team</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Player Modal -->
+    <div id="editPlayerModal" class="edit-modal">
+        <div class="edit-modal-content">
+            <div class="edit-modal-header">
+                <h3>Edit Player</h3>
+                <button onclick="closeEditPlayerModal()" class="close-btn">✕</button>
+            </div>
+            <form onsubmit="updatePlayer(event)">
+                <input type="hidden" id="editPlayerTeamId">
+                <input type="hidden" id="editPlayerIndex">
+                <div class="form-group">
+                    <label>Player Name</label>
+                    <input type="text" id="editPlayerName" required placeholder="e.g., Cole Palmer">
+                </div>
+                <div class="form-group">
+                    <label>Jersey Number</label>
+                    <input type="number" id="editPlayerNumber" required placeholder="e.g., 20">
+                </div>
+                <div class="form-group">
+                    <label>Position</label>
+                    <select id="editPlayerPosition" required>
+                        <option value="">Choose position...</option>
+                        <option value="GK">Goalkeeper</option>
+                        <option value="DEF">Defender</option>
+                        <option value="MID">Midfielder</option>
+                        <option value="FWD">Forward</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Update Player Photo</label>
+                    <input type="file" id="editPlayerPhoto" accept="image/*">
+                    <div id="editPlayerPhotoPreview" class="image-preview"></div>
+                    <small style="color: #b0b0b0; display: block; margin-top: 0.5rem;">
+                        Current: <span id="currentPlayerPhoto"></span>
+                    </small>
+                </div>
+                <button type="submit" class="btn-update">Update Player</button>
+            </form>
+        </div>
+    </div>
 
     <div class="main-container" id="app">
         <!-- Content will be dynamically loaded here -->

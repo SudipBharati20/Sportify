@@ -11,7 +11,7 @@
         <nav>
             <div class="logo">SPORTIFY</div>
             <ul class="nav-links">
-                <li><a href="../HTML/news.html">Latest News</a></li>
+                <li><a href="../HTML/frontpage.html">Home</a></li>
                 <li><a href="../HTML/Teams.html">Team</a></li>
                 <li><a href="../HTML/matches.html">Matches</a></li>
                 <li><a href="../HTML/tickets.html">Bet</a></li>
@@ -33,7 +33,16 @@
             </div>
             <div class="hero-image">
                 <div class="player-silhouette"></div>
-                <img src="../assets/mo.png" alt="Football Action" class="football-image">
+                <div class="slideshow-container">
+                    <img src="../assets/mosala.png" alt="Player 1" class="football-image slideshow-image active">
+                    <img src="../assets/klopp.png" alt="Player 2" class="football-image slideshow-image">
+                    <img src="../assets/ronaldo.png" alt="Player 3" class="football-image slideshow-image">
+                    <img src="../assets/messi.png" alt="Player 4" class="football-image slideshow-image">
+                    <img src="../assets/neymar.png" alt="Player 5" class="football-image slideshow-image">
+                    <img src="../assets/yamal.png" alt="Player 6" class="football-image slideshow-image">
+                    <img src="../assets/mbappe.png" alt="Player 7" class="football-image slideshow-image">
+                    <img src="../assets/kounde.png" alt="Player 8" class="football-image slideshow-image">
+                </div>
             </div>
         </div>
     </section>
@@ -109,5 +118,30 @@
             <p style="color: #b0b0b0;">&copy; 2024 SPORTIFY. All rights reserved. | Designed with passion for the beautiful game.</p>
         </div>
     </footer>
+
+    <script>
+        // Slideshow functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slideshow-image');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            // Remove active class from all slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Add active class to current slide
+            slides[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Change slide every 4 seconds
+        setInterval(nextSlide, 4000);
+    </script>
 </body>
 </html>

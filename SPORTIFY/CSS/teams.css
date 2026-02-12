@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #0a0e27;
     color: #fff;
     overflow-x: hidden;
@@ -58,6 +58,169 @@ nav {
     color: #ffa500;
 }
 
+.admin-toggle {
+    background: rgba(255, 165, 0, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+/* Admin Panel */
+.admin-panel {
+    position: fixed;
+    top: 0;
+    right: -600px;
+    width: 600px;
+    height: 100vh;
+    background: #151933;
+    z-index: 2000;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.admin-panel.active {
+    right: 0;
+}
+
+.admin-content {
+    padding: 2rem;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(255, 165, 0, 0.3);
+}
+
+.admin-header h2 {
+    color: #ffa500;
+    font-size: 1.8rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #ffa500;
+}
+
+.admin-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid rgba(255, 165, 0, 0.2);
+}
+
+.admin-tab {
+    padding: 0.8rem 1.5rem;
+    background: none;
+    border: none;
+    color: #b0b0b0;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+}
+
+.admin-tab:hover {
+    color: #ffa500;
+}
+
+.admin-tab.active {
+    color: #ffa500;
+    border-bottom-color: #ffa500;
+}
+
+.admin-form {
+    display: none;
+}
+
+.admin-form.active {
+    display: block;
+    animation: fadeIn 0.3s;
+}
+
+.admin-form h3 {
+    color: #ffa500;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #b0b0b0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 165, 0, 0.3);
+    color: #fff;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #ffa500;
+}
+
+.image-preview {
+    margin-top: 1rem;
+    min-height: 100px;
+    border: 2px dashed rgba(255, 165, 0, 0.3);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #ffa500 0%, #ff8c00 100%);
+    border: none;
+    color: #0a0e27;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+}
+
 /* Main Container */
 .main-container {
     margin-top: 80px;
@@ -107,6 +270,7 @@ nav {
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
+    border-radius: 10px;
 }
 
 .league-card::before {
@@ -131,8 +295,22 @@ nav {
 }
 
 .league-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.league-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
 }
 
 .league-name {
@@ -140,11 +318,13 @@ nav {
     font-weight: bold;
     margin-bottom: 0.5rem;
     color: #ffa500;
+    text-align: center;
 }
 
 .league-country {
     color: #b0b0b0;
     font-size: 0.9rem;
+    text-align: center;
 }
 
 /* Team Selection */
@@ -162,6 +342,7 @@ nav {
     text-align: center;
     cursor: pointer;
     transition: all 0.3s;
+    border-radius: 10px;
 }
 
 .team-card:hover {
@@ -171,8 +352,21 @@ nav {
 }
 
 .team-logo {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.team-logo img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
 }
 
 .team-name {
@@ -194,10 +388,25 @@ nav {
     background: linear-gradient(135deg, #1a1f3a 0%, #151933 100%);
     border: 1px solid rgba(255, 165, 0, 0.3);
     margin-bottom: 2rem;
+    border-radius: 10px;
 }
 
 .team-header-logo {
-    font-size: 5rem;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.team-header-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
 }
 
 .team-header-info h1 {
@@ -265,6 +474,7 @@ nav {
     display: flex;
     gap: 1.5rem;
     transition: all 0.3s;
+    border-radius: 10px;
 }
 
 .news-item:hover {
@@ -301,6 +511,7 @@ nav {
     border: 1px solid rgba(255, 165, 0, 0.2);
     padding: 1.5rem;
     transition: all 0.3s;
+    border-radius: 10px;
 }
 
 .player-card-small:hover {
@@ -328,6 +539,7 @@ nav {
     font-size: 0.8rem;
     text-transform: uppercase;
     border: 1px solid rgba(255, 165, 0, 0.3);
+    border-radius: 20px;
 }
 
 .player-name-small {
@@ -354,6 +566,7 @@ nav {
     border: 1px solid rgba(255, 165, 0, 0.2);
     padding: 2rem;
     transition: all 0.3s;
+    border-radius: 10px;
 }
 
 .match-card:hover {
@@ -414,6 +627,7 @@ nav {
     border: 1px solid rgba(255, 165, 0, 0.3);
     padding: 2rem;
     text-align: center;
+    border-radius: 10px;
 }
 
 .formation-title {
@@ -431,6 +645,7 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    border-radius: 10px;
 }
 
 .pitch::before {
@@ -468,6 +683,7 @@ nav {
     background: linear-gradient(135deg, #1a1f3a 0%, #151933 100%);
     border: 1px solid rgba(255, 165, 0, 0.2);
     padding: 2rem;
+    border-radius: 10px;
 }
 
 .tactics-info h3 {
@@ -538,7 +754,13 @@ nav {
 /* Responsive */
 @media (max-width: 768px) {
     .nav-links {
-        display: none;
+        gap: 1rem;
+        font-size: 0.8rem;
+    }
+
+    .admin-panel {
+        width: 100%;
+        right: -100%;
     }
 
     .team-header {
@@ -565,4 +787,155 @@ nav {
         height: 50px;
         font-size: 0.8rem;
     }
+}
+
+/* Manage Lists */
+.manage-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.manage-item {
+    background: linear-gradient(135deg, #1a1f3a 0%, #151933 100%);
+    border: 1px solid rgba(255, 165, 0, 0.2);
+    padding: 1.5rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.manage-item-logo {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.manage-item-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 5px;
+}
+
+.manage-item-info {
+    flex: 1;
+}
+
+.manage-item-info h4 {
+    color: #ffa500;
+    margin-bottom: 0.3rem;
+    font-size: 1.2rem;
+}
+
+.manage-item-info p {
+    color: #b0b0b0;
+    font-size: 0.9rem;
+}
+
+.manage-item-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.btn-edit,
+.btn-delete {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.btn-edit {
+    background: rgba(0, 150, 255, 0.2);
+    color: #00a0ff;
+    border: 1px solid rgba(0, 150, 255, 0.3);
+}
+
+.btn-edit:hover {
+    background: rgba(0, 150, 255, 0.3);
+}
+
+.btn-delete {
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff4444;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.btn-delete:hover {
+    background: rgba(255, 0, 0, 0.3);
+}
+
+/* Edit Modal */
+.edit-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 3000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-modal.active {
+    display: flex;
+}
+
+.edit-modal-content {
+    background: #151933;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+.edit-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(255, 165, 0, 0.3);
+}
+
+.edit-modal-header h3 {
+    color: #ffa500;
+    font-size: 1.5rem;
+}
+
+.btn-update {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #00a0ff 0%, #0080cc 100%);
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.3s;
+    margin-top: 1rem;
+}
+
+.btn-update:hover {
+    transform: translateY(-2px);
 }
